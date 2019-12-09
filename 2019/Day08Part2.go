@@ -22,7 +22,6 @@ func main() {
 	encodedSequence := getEncodedStreamFromInput("Day08Part1.txt")
 
 	layers := createLayers(&encodedSequence)
-	// fmt.Println(layers)
 
 	targetLayer := findFewestZeroLayerInfo(&layers)
 	fmt.Printf("Target Layer is %d\n", targetLayer)
