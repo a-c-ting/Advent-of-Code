@@ -187,9 +187,9 @@ func obtainCodeAndModes(ommm int) opcodeModes {
 }
 
 func getInputFromUser() int {
-	var input int
-	fmt.Scanf("%d", &input)
-	return input
+	var input string
+	fmt.Scanln(&input)
+	return toInt(input)
 }
 
 func getIntcodeFromInput(path string) []int {
