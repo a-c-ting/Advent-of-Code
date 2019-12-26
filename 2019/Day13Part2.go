@@ -5,7 +5,7 @@ import (
 	"math"
 	"time"
 
-	proc "./Day13"
+	"./proc"
 )
 
 const ROBO_OUT = 3
@@ -24,7 +24,7 @@ func main() {
 
 	Intcode[0] = 2 //freeplay mode
 
-	go proc.ProcessIntcode(Intcode, inputChannel, outputChannel)
+	go proc.ProcessIntcode(Intcode, inputChannel, outputChannel, ROBO_OUT, true)
 
 	gameMap := make(map[coordinates]int)
 	game(inputChannel, outputChannel, gameMap)

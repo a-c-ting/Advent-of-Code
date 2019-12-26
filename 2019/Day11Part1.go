@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	proc "./Day11"
+	"./proc"
 )
 
 const ROBO_OUT = 2
@@ -34,7 +34,7 @@ func main() {
 	inputChannel := make(chan int)
 	outputChannel := make(chan int, ROBO_OUT)
 
-	go proc.ProcessIntcode(Intcode, inputChannel, outputChannel)
+	go proc.ProcessIntcode(Intcode, inputChannel, outputChannel, ROBO_OUT, false)
 
 	roboPainter(inputChannel, outputChannel)
 }

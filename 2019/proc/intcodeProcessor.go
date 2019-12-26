@@ -1,4 +1,4 @@
-package intcodeInterpreter
+package proc
 
 import (
 	"fmt"
@@ -21,7 +21,7 @@ func IncreaseIntcodeMemoryTenfold(intcode []int) []int {
 	return result
 }
 
-func ProcessIntcode(intcode []int, inChan chan int, outChan chan int) {
+func ProcessIntcode(intcode []int, inChan chan int, outChan chan int, outputCount int, needInputSignal bool) {
 	codeLength := len(intcode)
 	var stepSize int
 	var pos1, pos2, pos3 int
@@ -33,9 +33,9 @@ func ProcessIntcode(intcode []int, inChan chan int, outChan chan int) {
 		switch ommm.opcode {
 		case 99:
 			//output 99 so intcode user know the intcode has stopped
-			outChan <- 99
-			outChan <- 99
-			outChan <- 99
+			for i := 0; i < outputCount; i++ {
+				outChan <- 99
+			}
 
 			//release channel
 			<-inChan
@@ -58,9 +58,11 @@ func ProcessIntcode(intcode []int, inChan chan int, outChan chan int) {
 			stepSize = 4
 		case 3:
 			// signal the intcode user we're asking for input. Similar to intcode 99
-			outChan <- 98
-			outChan <- 98
-			outChan <- 98
+			if needInputSignal {
+				for i := 0; i < outputCount; i++ {
+					outChan <- 98
+				}
+			}
 
 			// input := getInputFromUser()
 			input := <-inChan

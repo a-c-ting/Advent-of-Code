@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"math"
 
-	proc "./Day13"
+	"./proc"
 )
 
 const ROBO_OUT = 3
@@ -21,7 +21,7 @@ func main() {
 	inputChannel := make(chan int)
 	outputChannel := make(chan int, ROBO_OUT)
 
-	go proc.ProcessIntcode(Intcode, inputChannel, outputChannel)
+	go proc.ProcessIntcode(Intcode, inputChannel, outputChannel, ROBO_OUT, false)
 
 	gameMap := make(map[coordinates]int)
 	mapMaker(inputChannel, outputChannel, gameMap)

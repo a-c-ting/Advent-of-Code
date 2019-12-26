@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"math"
 
-	proc "./Day11"
+	"./proc"
 )
 
 const ROBO_OUT = 2
@@ -34,18 +34,17 @@ func main() {
 	inputChannel := make(chan int)
 	outputChannel := make(chan int, ROBO_OUT)
 
-	go proc.ProcessIntcode(Intcode, inputChannel, outputChannel)
+	go proc.ProcessIntcode(Intcode, inputChannel, outputChannel, ROBO_OUT, false)
 
 	adventurerMap := make(map[coordinates]int)
 	roboPainter(inputChannel, outputChannel, adventurerMap)
 
 	xlen, ylen, xmin, ymin := getMapParams(adventurerMap)
-
 	visualizePanels(xlen, ylen, xmin, ymin, adventurerMap)
 }
 
 func visualizePanels(xlen, ylen, xmin, ymin int, adventurerMap map[coordinates]int) {
-	for j := (ymin + ylen); j >= ymin; j-- {
+	for j := (ymin + ylen) - 1; j >= ymin; j-- {
 		for i := xmin; i < (xmin + xlen); i++ {
 			paintCoordinates := coordinates{x: i, y: j}
 			panelColor := adventurerMap[paintCoordinates]
@@ -75,8 +74,8 @@ func getMapParams(adventurerMap map[coordinates]int) (int, int, int, int) {
 			minY = keys.y
 		}
 	}
-	return int(math.Abs(float64(maxX)) + math.Abs(float64(minX))),
-		int(math.Abs(float64(maxY)) + math.Abs(float64(minY))),
+	return int(math.Abs(float64(maxX)) + math.Abs(float64(minX)) + 1),
+		int(math.Abs(float64(maxY)) + math.Abs(float64(minY)) + 1),
 		minX, minY
 }
 
