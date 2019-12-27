@@ -62,7 +62,7 @@ func roboPainter(inChan chan int, outChan chan int) {
 		roboTurn := <-outChan
 
 		//halt
-		if roboTurn == 99 {
+		if roboTurn == proc.CodeNineNine {
 			break
 		}
 

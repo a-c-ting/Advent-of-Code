@@ -8,6 +8,8 @@ import (
 )
 
 const MAX_MODES = 3
+const CodeNineNine = 1<<31 - 1
+const CodeInput = 1<<31 - 2
 
 type opcodeModes struct {
 	opcode int
@@ -32,9 +34,9 @@ func ProcessIntcode(intcode []int, inChan chan int, outChan chan int, outputCoun
 		ommm = obtainCodeAndModes(intcode[currentOp])
 		switch ommm.opcode {
 		case 99:
-			//output 99 so intcode user know the intcode has stopped
+			//output CodeNineNine so intcode user know the intcode has stopped
 			for i := 0; i < outputCount; i++ {
-				outChan <- 99
+				outChan <- CodeNineNine
 			}
 
 			//release channel
@@ -57,10 +59,10 @@ func ProcessIntcode(intcode []int, inChan chan int, outChan chan int, outputCoun
 
 			stepSize = 4
 		case 3:
-			// signal the intcode user we're asking for input. Similar to intcode 99
+			// Output CodeInput to signal user we need input.
 			if needInputSignal {
 				for i := 0; i < outputCount; i++ {
-					outChan <- 98
+					outChan <- CodeInput
 				}
 			}
 

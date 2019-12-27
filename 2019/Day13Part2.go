@@ -88,11 +88,11 @@ func game(inChan chan int, outChan chan int, gameMap map[coordinates]int) {
 		ycoord := <-outChan
 		tileID := <-outChan
 
-		if tileID == 99 { //halt
+		if tileID == proc.CodeNineNine { //halt
 			scoreXY := coordinates{-1, 0}
 			fmt.Println("Final Score is :", gameMap[scoreXY])
 			break
-		} else if tileID == 98 { //input, and is also the "framerate" of our game
+		} else if tileID == proc.CodeInput { //input, and is also the "framerate" of our game
 			if (xlen == 0) && (ylen == 0) { //we use only the initial boundaries
 				xlen, ylen, xmin, ymin = getMapParams(gameMap)
 			}

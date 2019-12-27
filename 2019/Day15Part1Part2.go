@@ -66,7 +66,7 @@ func searchAndRepair(inChan chan int, outChan chan int, gameMap map[coordinates]
 		}
 
 		/** Auto Play Version		**/
-		// TODO: AutoPlay version when I get more time
+		// TODO: AutoPlay version
 
 		inChan <- tempInput
 
@@ -177,7 +177,6 @@ func getMapParams(gameMap map[coordinates]int) (int, int, int, int) {
 }
 
 func translateInput(onetwothree int) int {
-	//NOTE: This is no longer used for solution as it is very hard to actually play the game.
 	//These function is to set the keypad as the joystey input
 	//If you wish to use a non-keypad set of input (like WASD or ZXC), you'd need to
 	//modify the GetInputFromUser in intcoodeProcessor.go to allow for non-Integers input

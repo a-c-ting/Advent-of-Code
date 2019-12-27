@@ -88,7 +88,7 @@ func mapMaker(inChan chan int, outChan chan int, gameMap map[coordinates]int) {
 		ycoord := <-outChan
 		tileID := <-outChan
 
-		if tileID == 99 { //halt
+		if tileID == proc.CodeNineNine { //halt
 			break
 		}
 

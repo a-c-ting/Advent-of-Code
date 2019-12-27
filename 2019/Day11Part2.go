@@ -100,7 +100,7 @@ func roboPainter(inChan chan int, outChan chan int, adventurerMap map[coordinate
 		roboTurn := <-outChan
 
 		//halt
-		if roboTurn == 99 {
+		if roboTurn == proc.CodeNineNine {
 			break
 		}
 
