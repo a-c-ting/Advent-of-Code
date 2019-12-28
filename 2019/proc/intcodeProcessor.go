@@ -16,6 +16,17 @@ type opcodeModes struct {
 	mode   [MAX_MODES]int
 }
 
+type daIntcode []int
+
+var (
+	currentCode        daIntcode
+	initialCode        daIntcode
+	iInChan            chan int
+	iOutChan           chan int
+	iOutCount          int
+	iInputSignalSwitch bool
+)
+
 func IncreaseIntcodeMemoryTenfold(intcode []int) []int {
 	power := make([]int, len(intcode)*9)
 	result := append(intcode, power...)
@@ -24,6 +35,26 @@ func IncreaseIntcodeMemoryTenfold(intcode []int) []int {
 }
 
 func ProcessIntcode(intcode []int, inChan chan int, outChan chan int, outputCount int, needInputSignal bool) {
+	set(intcode, inChan, outChan, outputCount, needInputSignal)
+	currentCode.processIntcode(inChan, outChan, outputCount, needInputSignal)
+}
+
+func set(intcode []int, inChan chan int, outChan chan int, outputCount int, needInputSignal bool) {
+	initialCode = make([]int, len(intcode))
+	iInChan = inChan
+	iOutChan = outChan
+	iOutCount = outputCount
+	iInputSignalSwitch = needInputSignal
+	copy(initialCode, intcode)
+	currentCode = intcode
+}
+
+func Restart() {
+	copy(currentCode, initialCode)
+	go currentCode.processIntcode(iInChan, iOutChan, iOutCount, iInputSignalSwitch)
+}
+
+func (intcode daIntcode) processIntcode(inChan chan int, outChan chan int, outputCount int, needInputSignal bool) {
 	codeLength := len(intcode)
 	var stepSize int
 	var pos1, pos2, pos3 int
