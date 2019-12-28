@@ -1,9 +1,12 @@
 # Advent-of-Code
 This repo contains solutions to AoC programming problems/puzzles using Go (golang).
-For simplicity and organization purposes, all codes per problem are in a single file.
-They can all be run using 'go run xxxx.go'.
+For simplicity and organization purposes, most of the codes per problem are in a single file. Only exception is the intcode processor.
 
-If you need to test the codes, save the AoC puzzle input as DayXXPartY.txt files and put them in the same folder as the .go files.
+## Steps to run:
+1. Save the AoC puzzle input as DayXXPartY.txt files and place them in the same folder as the .go files.
+    1. So far all puzzles I've done only use one input, so they remain as DayXXPart1.txt even in Part 2.
+2. Go to the year folder. e.g. 2019 for 2019 problems
+3. execute 'go run DayXXPartY.go'
 
 Check out Advent of Code if you also wanna do these problems!
 
