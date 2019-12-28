@@ -1,5 +1,5 @@
 # Advent-of-Code
-This repo contains solutions to AoC programming problems/puzzles using Go (golang).
+This repo contains solutions to AoC programming problems/puzzles using Go (golang). My goal is to mainly familiarize with Go.
 For simplicity and organization purposes, most of the codes per problem are in a single file. Only exception is the intcode processor.
 
 ## Steps to run:
